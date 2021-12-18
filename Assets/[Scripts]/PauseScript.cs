@@ -5,13 +5,13 @@ using UnityEngine.SceneManagement;
 public class PauseScript : MonoBehaviour
 {
 
-    public bool isPaused = false;
+    public bool isPaused = true;
     public GameObject pauseUI;
 
     void Start()
     {
-        isPaused = false;
-        Time.timeScale = 1.0f;
+        isPaused = true;
+        Time.timeScale = 0.0f;
     }
     // Update is called once per frame
     void Update()
