@@ -7,8 +7,8 @@ public class PlayerBehaviour : MonoBehaviour
 {
     public Transform bulletSpawn;
     public GameObject bullet;
+    public PauseScript pauseObj;
     public int fireRate;
-
 
     public BulletManager bulletManager;
 
@@ -29,8 +29,14 @@ public class PlayerBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _Fire();
-        _Move();
+        
+           
+        
+        if(!pauseObj.isPaused)
+        {
+            _Fire();
+            _Move();
+        }
     }
 
     private void _Move()
