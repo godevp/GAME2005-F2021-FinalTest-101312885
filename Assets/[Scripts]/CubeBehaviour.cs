@@ -10,7 +10,6 @@ public class Contact : IEquatable<Contact>
     public CubeBehaviour cube;
     public Vector3 face;
     public float penetration;
-    public Vector3 NormalC;
     public Contact(CubeBehaviour cube)
     {
         this.cube = cube;
@@ -59,14 +58,9 @@ public class CubeBehaviour : MonoBehaviour
     public bool isColliding;
     public bool debug;
     public List<Contact> contacts;
-    public float speed;
-    public float range;
     private MeshFilter meshFilter;
     public Bounds bounds;
     public bool isGrounded;
-    public Vector3 direction;
-    public BulletManager bulletManager;
-    public bool considerBullet;
 
     // Start is called before the first frame update
     void Start()
@@ -76,10 +70,7 @@ public class CubeBehaviour : MonoBehaviour
 
         bounds = meshFilter.mesh.bounds;
         size = bounds.size;
-        if(considerBullet)
-        {
-            bulletManager = FindObjectOfType<BulletManager>(); 
-        }
+      
     }
 
     // Update is called once per frame
@@ -87,11 +78,7 @@ public class CubeBehaviour : MonoBehaviour
     {
         max = Vector3.Scale(bounds.max, transform.localScale) + transform.position;
         min = Vector3.Scale(bounds.min, transform.localScale) + transform.position;
-        if(considerBullet)
-        {
-            _Move();
-            _CheckBounds();
-        }
+      
     }
 
     private void OnDrawGizmos()
@@ -103,15 +90,5 @@ public class CubeBehaviour : MonoBehaviour
             Gizmos.DrawWireCube(transform.position, Vector3.Scale(new Vector3(1.0f, 1.0f, 1.0f), transform.localScale));
         }
     }
-    private void _Move()
-    {
-        transform.position += direction * speed * Time.deltaTime;
-    }
-    private void _CheckBounds()
-    {
-        if (Vector3.Distance(transform.position, Vector3.zero) > range)
-        {
-            bulletManager.ReturnBullet(this.gameObject);
-        }
-    }
+  
 }
