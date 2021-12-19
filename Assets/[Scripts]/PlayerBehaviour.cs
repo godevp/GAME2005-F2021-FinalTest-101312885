@@ -74,8 +74,26 @@ public class PlayerBehaviour : MonoBehaviour
             if (Input.GetAxisRaw("Jump") > 0.0f)
             {
                 body.velocity = transform.up * speed * 0.1f * Time.deltaTime;
+                
             }
-            
+            // if (Input.GetAxisRaw("Jump") > 0.0f && Input.GetAxisRaw("Vertical") > 0.0f)
+            //{
+            //    body.velocity = ((transform.up * 2.0f) + playerCam.transform.forward) * 3.5f * Time.deltaTime;
+            //}
+            //if (Input.GetAxisRaw("Jump") > 0.0f && Input.GetAxisRaw("Vertical") < 0.0f)
+            //{
+            //    body.velocity = ((transform.up * 2.0f) - playerCam.transform.forward) * 3.5f  * Time.deltaTime;
+            //}
+            //if (Input.GetAxisRaw("Jump") > 0.0f && Input.GetAxisRaw("Horizontal") > 0.0f)
+            //{
+            //    body.velocity = ((transform.up * 2.0f) + playerCam.transform.right) * 3.5f  * Time.deltaTime;
+            //}
+            //if (Input.GetAxisRaw("Jump") > 0.0f && Input.GetAxisRaw("Horizontal") < 0.0f)
+            //{
+            //    body.velocity = ((transform.up * 2.0f) - playerCam.transform.right) * 3.5f * Time.deltaTime;
+            //}
+
+
 
             transform.position += body.velocity;
         }
@@ -84,23 +102,23 @@ public class PlayerBehaviour : MonoBehaviour
             if (Input.GetAxisRaw("Horizontal") > 0.0f)
             {
                 // move right
-                body.velocity = playerCam.transform.right * 3.0f * Time.deltaTime;
+                body.velocity = (playerCam.transform.right - transform.up / 2) * 3.0f * Time.deltaTime;
             }
 
             if (Input.GetAxisRaw("Horizontal") < 0.0f)
             {
                 // move left
-                body.velocity = -playerCam.transform.right * 3.0f * Time.deltaTime;
+                body.velocity = (-playerCam.transform.right - transform.up / 2) * 3.0f * Time.deltaTime;
             }
             if (Input.GetAxisRaw("Vertical") > 0.0f)
             {
                 // move forward
-                body.velocity = playerCam.transform.forward * 3.0f * Time.deltaTime;
+                body.velocity = (playerCam.transform.forward - transform.up/2) * 3.0f * Time.deltaTime;
             }
             if (Input.GetAxisRaw("Vertical") < 0.0f)
             {
                 // move Back
-                body.velocity = -playerCam.transform.forward * 3.0f * Time.deltaTime;
+                body.velocity = (-playerCam.transform.forward - transform.up / 2) * 3.0f * Time.deltaTime;
             }
         }
     }
