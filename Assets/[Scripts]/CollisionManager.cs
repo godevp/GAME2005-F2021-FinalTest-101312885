@@ -181,7 +181,7 @@ public class CollisionManager : MonoBehaviour
                 //start here /////////////////////////////////////////////
                 Vector3 minimunTranslationVectorAtoB = Vector3.zero;
                 Vector3 collisionNormalAtoB = Vector3.zero;
-
+                //check if it's a dynamic cube of static
                 if (a.gameObject.GetComponent<RigidBody3D>().bodyType == BodyType.STATIC && b.gameObject.GetComponent<RigidBody3D>().bodyType == BodyType.DYNAMIC)
                 {
                     movementScalarA = 0.0f;
@@ -197,7 +197,7 @@ public class CollisionManager : MonoBehaviour
                     movementScalarA = 0.5f;
                     movementScalarB = 0.5f;
                 }
-
+                //check on which side it collides
                 if (contactB.face == Vector3.up)
                 {
                     collisionNormalAtoB = new Vector3(0, 1, 0);
@@ -230,8 +230,6 @@ public class CollisionManager : MonoBehaviour
                 // add the new contact
                 a.contacts.Add(contactB);
                 a.isColliding = true;
-                
-               
             }
         }
         else
