@@ -8,12 +8,16 @@ public class CollisionManager : MonoBehaviour
 {
     public CubeBehaviour[] cubes;
     public BulletBehaviour[] spheres;
+    public CubeBulletBehaviour[] bullets;
 
     private static Vector3[] faces;
 
-    // Start is called before the first frame update
-    void Start()
+   
+    // Update is called once per frame
+    void Update()
     {
+        spheres = FindObjectsOfType<BulletBehaviour>();
+        bullets = FindObjectsOfType<CubeBulletBehaviour>();
         cubes = FindObjectsOfType<CubeBehaviour>();
 
         faces = new Vector3[]
@@ -22,13 +26,6 @@ public class CollisionManager : MonoBehaviour
             Vector3.down, Vector3.up,
             Vector3.back , Vector3.forward
         };
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        spheres = FindObjectsOfType<BulletBehaviour>();
-
         // check each AABB with every other AABB in the scene
         for (int i = 0; i < cubes.Length; i++)
         {
@@ -40,8 +37,6 @@ public class CollisionManager : MonoBehaviour
                 }
             }
         }
-
-        // Check each sphere against each AABB in the scene
         foreach (var sphere in spheres)
         {
             foreach (var cube in cubes)
@@ -50,13 +45,22 @@ public class CollisionManager : MonoBehaviour
                 {
                     CheckSphereAABB(sphere, cube);
                 }
-                
             }
         }
 
+        foreach (var bullet in bullets)
+        {
+            foreach (var cube in cubes)
+            {
+                if (cube.name != "Player")
+                {
+                    Reflect(bullet);
+                }
 
+            }
+        }
     }
-
+    
     public static void CheckSphereAABB(BulletBehaviour s, CubeBehaviour b)
     {
         // get box closest point to sphere center by clamping
@@ -96,9 +100,7 @@ public class CollisionManager : MonoBehaviour
 
             s.penetration = penetration;
             s.collisionNormal = face;
-            //s.isColliding = true;
 
-            
             Reflect(s);
         }
 
@@ -121,11 +123,11 @@ public class CollisionManager : MonoBehaviour
         }
     }
 
-
     public static void CheckAABBs(CubeBehaviour a, CubeBehaviour b)
     {
         Contact contactB = new Contact(b);
-
+        float movementScalarA = 0.0f;
+        float movementScalarB = 0.0f;
         if ((a.min.x <= b.max.x && a.max.x >= b.min.x) &&
             (a.min.y <= b.max.y && a.max.y >= b.min.y) &&
             (a.min.z <= b.max.z && a.max.z >= b.min.z))
@@ -176,12 +178,60 @@ public class CollisionManager : MonoBehaviour
                     a.gameObject.GetComponent<RigidBody3D>().Stop();
                     a.isGrounded = true;
                 }
-                
+                //start here /////////////////////////////////////////////
+                Vector3 minimunTranslationVectorAtoB = Vector3.zero;
+                Vector3 collisionNormalAtoB = Vector3.zero;
+
+                if (a.gameObject.GetComponent<RigidBody3D>().bodyType == BodyType.STATIC && b.gameObject.GetComponent<RigidBody3D>().bodyType == BodyType.DYNAMIC)
+                {
+                    movementScalarA = 0.0f;
+                    movementScalarB = 1.0f;
+                }
+                if (a.gameObject.GetComponent<RigidBody3D>().bodyType == BodyType.DYNAMIC && b.gameObject.GetComponent<RigidBody3D>().bodyType == BodyType.STATIC)
+                {
+                    movementScalarA = 1.0f;
+                    movementScalarB = 0.0f;
+                }
+                if (a.gameObject.GetComponent<RigidBody3D>().bodyType == BodyType.DYNAMIC && b.gameObject.GetComponent<RigidBody3D>().bodyType == BodyType.DYNAMIC)
+                {
+                    movementScalarA = 0.5f;
+                    movementScalarB = 0.5f;
+                }
+
+                if (contactB.face == Vector3.up)
+                {
+                    collisionNormalAtoB = new Vector3(0, 1, 0);
+                    minimunTranslationVectorAtoB = collisionNormalAtoB * penetration;
+                }
+                if (contactB.face == Vector3.forward)
+                {
+                    collisionNormalAtoB = new Vector3(0, 0, 1);
+                    minimunTranslationVectorAtoB = collisionNormalAtoB * penetration;
+                }
+                if (contactB.face == Vector3.back)
+                {  
+                    collisionNormalAtoB = new Vector3(0, 0, -1);
+                    minimunTranslationVectorAtoB = collisionNormalAtoB * penetration;
+                }
+                if (contactB.face == Vector3.left)
+                {
+                    collisionNormalAtoB = new Vector3(-1, 0, 0);
+                    minimunTranslationVectorAtoB = collisionNormalAtoB * penetration;
+                }
+                if (contactB.face == Vector3.right)
+                {
+                    collisionNormalAtoB = new Vector3(1, 0, 0);
+                    minimunTranslationVectorAtoB = collisionNormalAtoB * penetration;
+                }
+
+                a.transform.position += -minimunTranslationVectorAtoB * movementScalarA;
+                b.transform.position += minimunTranslationVectorAtoB * movementScalarB;
 
                 // add the new contact
                 a.contacts.Add(contactB);
                 a.isColliding = true;
                 
+               
             }
         }
         else

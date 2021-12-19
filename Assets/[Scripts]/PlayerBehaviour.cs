@@ -9,13 +9,13 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject bullet;
     public PauseScript pauseObj;
     public int fireRate;
-
+    public float force;
     public BulletManager bulletManager;
 
     [Header("Movement")]
     public float speed;
     public bool isGrounded;
-
+   
 
     public RigidBody3D body;
     public CubeBehaviour cube;

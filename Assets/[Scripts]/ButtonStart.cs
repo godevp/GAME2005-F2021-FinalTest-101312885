@@ -8,8 +8,4 @@ public class ButtonStart : MonoBehaviour
     {
         SceneManager.LoadScene("Main");
     }
-    public void _Quit()
-    {
-
-    }
 }

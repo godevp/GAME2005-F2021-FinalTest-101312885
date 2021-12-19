@@ -123,6 +123,40 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &92016243
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 92016244}
+  m_Layer: 0
+  m_Name: Dynamic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &92016244
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 92016243}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 613454535}
+  - {fileID: 1170046219}
+  - {fileID: 1101564121}
+  m_Father: {fileID: 1990243753}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &120052982
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,7 +400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxBullets: 50
-  bullet: {fileID: 2898771445226466676, guid: dc05ecf40a596104686052b7abdee0d3, type: 3}
+  bullet: {fileID: 1511891883410240096, guid: da83349519170a44baa0acf17d05633c, type: 3}
 --- !u!4 &403008323
 Transform:
   m_ObjectHideFlags: 0
@@ -381,6 +415,41 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &415405123
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 415405124}
+  m_Layer: 0
+  m_Name: Static
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &415405124
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 415405123}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 893925096}
+  - {fileID: 536637372}
+  - {fileID: 1031056710}
+  - {fileID: 1052724112}
+  m_Father: {fileID: 1990243753}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &462829500
 GameObject:
@@ -586,10 +655,16 @@ MonoBehaviour:
   isColliding: 0
   debug: 0
   contacts: []
+  speed: 0
+  range: 0
   bounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   isGrounded: 0
+  direction: {x: 0, y: 0, z: 0}
+  bulletManager: {fileID: 0}
+  considerBullet: 0
+  considerPlayer: 0
 --- !u!23 &526557354
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -712,10 +787,16 @@ MonoBehaviour:
   isColliding: 0
   debug: 0
   contacts: []
+  speed: 0
+  range: 0
   bounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   isGrounded: 0
+  direction: {x: 0, y: 0, z: 0}
+  bulletManager: {fileID: 0}
+  considerBullet: 0
+  considerPlayer: 0
 --- !u!114 &536637369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -730,7 +811,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravityScale: 1
   mass: 1
-  bodyType: 1
+  bodyType: 0
   timer: 0
   isFalling: 0
   velocity: {x: 0, y: 0, z: 0}
@@ -793,12 +874,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 536637367}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.582, z: 0}
+  m_LocalPosition: {x: 0, y: -1.582, z: 3.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1990243753}
-  m_RootOrder: 2
+  m_Father: {fileID: 415405124}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &559188888
 GameObject:
@@ -889,10 +970,16 @@ MonoBehaviour:
   isColliding: 0
   debug: 1
   contacts: []
+  speed: 0
+  range: 0
   bounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   isGrounded: 0
+  direction: {x: 0, y: 0, z: 0}
+  bulletManager: {fileID: 0}
+  considerBullet: 0
+  considerPlayer: 1
 --- !u!114 &579480856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -998,6 +1085,7 @@ MonoBehaviour:
   bullet: {fileID: 2898771445226466676, guid: dc05ecf40a596104686052b7abdee0d3, type: 3}
   pauseObj: {fileID: 1794648317}
   fireRate: 100
+  force: 0
   bulletManager: {fileID: 403008322}
   speed: 100
   isGrounded: 0
@@ -1169,8 +1257,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1990243753}
-  m_RootOrder: 1
+  m_Father: {fileID: 92016244}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &613454536
 MonoBehaviour:
@@ -1190,10 +1278,16 @@ MonoBehaviour:
   isColliding: 0
   debug: 0
   contacts: []
+  speed: 0
+  range: 0
   bounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   isGrounded: 0
+  direction: {x: 0, y: 0, z: 0}
+  bulletManager: {fileID: 0}
+  considerBullet: 0
+  considerPlayer: 0
 --- !u!114 &613454537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1416,11 +1510,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 893925093}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.493, z: 0}
+  m_LocalPosition: {x: 0, y: -3.493, z: 1.77}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1990243753}
+  m_Father: {fileID: 415405124}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &893925097
@@ -1441,10 +1535,16 @@ MonoBehaviour:
   isColliding: 0
   debug: 0
   contacts: []
+  speed: 0
+  range: 0
   bounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   isGrounded: 0
+  direction: {x: 0, y: 0, z: 0}
+  bulletManager: {fileID: 0}
+  considerBullet: 0
+  considerPlayer: 0
 --- !u!114 &893925098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1459,7 +1559,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravityScale: 1
   mass: 1
-  bodyType: 1
+  bodyType: 0
   timer: 0
   isFalling: 0
   velocity: {x: 0, y: 0, z: 0}
@@ -1637,10 +1737,16 @@ MonoBehaviour:
   isColliding: 0
   debug: 0
   contacts: []
+  speed: 0
+  range: 0
   bounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   isGrounded: 0
+  direction: {x: 0, y: 0, z: 0}
+  bulletManager: {fileID: 0}
+  considerBullet: 0
+  considerPlayer: 0
 --- !u!114 &1031056707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1655,7 +1761,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravityScale: 1
   mass: 1
-  bodyType: 1
+  bodyType: 0
   timer: 0
   isFalling: 0
   velocity: {x: 0, y: 0, z: 0}
@@ -1718,12 +1824,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1031056705}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 6.23}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1990243753}
-  m_RootOrder: 5
+  m_Father: {fileID: 415405124}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1052724107
 GameObject:
@@ -1763,10 +1869,16 @@ MonoBehaviour:
   isColliding: 0
   debug: 0
   contacts: []
+  speed: 0
+  range: 0
   bounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   isGrounded: 0
+  direction: {x: 0, y: 0, z: 0}
+  bulletManager: {fileID: 0}
+  considerBullet: 0
+  considerPlayer: 0
 --- !u!114 &1052724109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1781,7 +1893,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravityScale: 1
   mass: 1
-  bodyType: 1
+  bodyType: 0
   timer: 0
   isFalling: 0
   velocity: {x: 0, y: 0, z: 0}
@@ -1844,12 +1956,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1052724107}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5580001, z: 0}
+  m_LocalPosition: {x: -1.34, y: 0.9899998, z: 7.11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1990243753}
-  m_RootOrder: 6
+  m_Father: {fileID: 415405124}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1101564116
 GameObject:
@@ -1889,10 +2001,16 @@ MonoBehaviour:
   isColliding: 0
   debug: 0
   contacts: []
+  speed: 0
+  range: 0
   bounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   isGrounded: 0
+  direction: {x: 0, y: 0, z: 0}
+  bulletManager: {fileID: 0}
+  considerBullet: 0
+  considerPlayer: 0
 --- !u!114 &1101564118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1974,8 +2092,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1990243753}
-  m_RootOrder: 4
+  m_Father: {fileID: 92016244}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1125924261
 GameObject:
@@ -2099,10 +2217,16 @@ MonoBehaviour:
   isColliding: 0
   debug: 0
   contacts: []
+  speed: 0
+  range: 0
   bounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   isGrounded: 0
+  direction: {x: 0, y: 0, z: 0}
+  bulletManager: {fileID: 0}
+  considerBullet: 0
+  considerPlayer: 0
 --- !u!114 &1170046216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2184,8 +2308,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1990243753}
-  m_RootOrder: 3
+  m_Father: {fileID: 92016244}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1193645828
 GameObject:
@@ -2890,13 +3014,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 893925096}
-  - {fileID: 613454535}
-  - {fileID: 536637372}
-  - {fileID: 1170046219}
-  - {fileID: 1101564121}
-  - {fileID: 1031056710}
-  - {fileID: 1052724112}
+  - {fileID: 92016244}
+  - {fileID: 415405124}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

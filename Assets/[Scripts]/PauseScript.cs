@@ -16,18 +16,9 @@ public class PauseScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.P))
+        if(Input.GetKeyDown(KeyCode.P) && !isPaused)
         {
-            if(isPaused)
-            {
-                Debug.Log("Resume");
-                _Resume();
-            }
-            else
-            {
-                Debug.Log("Pause");
                 _Pause();
-            }
         }
         if(Input.GetKeyDown(KeyCode.M) && isPaused)
         {
