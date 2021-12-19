@@ -10,6 +10,7 @@ public class PlayerBehaviour : MonoBehaviour
     public PauseScript pauseObj;
     public int fireRate;
     public float force;
+
     public BulletManager bulletManager;
 
     [Header("Movement")]
@@ -29,9 +30,7 @@ public class PlayerBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-           
-        
+
         if(!pauseObj.isPaused)
         {
             _Fire();
@@ -43,6 +42,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (isGrounded)
         {
+         
             if (Input.GetAxisRaw("Horizontal") > 0.0f)
             {
                 // move right
@@ -75,8 +75,33 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 body.velocity = transform.up * speed * 0.1f * Time.deltaTime;
             }
+            
 
             transform.position += body.velocity;
+        }
+        else
+        {
+            if (Input.GetAxisRaw("Horizontal") > 0.0f)
+            {
+                // move right
+                body.velocity = playerCam.transform.right * 3.0f * Time.deltaTime;
+            }
+
+            if (Input.GetAxisRaw("Horizontal") < 0.0f)
+            {
+                // move left
+                body.velocity = -playerCam.transform.right * 3.0f * Time.deltaTime;
+            }
+            if (Input.GetAxisRaw("Vertical") > 0.0f)
+            {
+                // move forward
+                body.velocity = playerCam.transform.forward * 3.0f * Time.deltaTime;
+            }
+            if (Input.GetAxisRaw("Vertical") < 0.0f)
+            {
+                // move Back
+                body.velocity = -playerCam.transform.forward * 3.0f * Time.deltaTime;
+            }
         }
     }
 
